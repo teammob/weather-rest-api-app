@@ -8,10 +8,13 @@ dotenv.config({
 });
 
 import { weather } from './model';
+import { WeatherController } from './controller/weather';
 import { CurrentWeatherController } from './controller/currentWeather';
-const weatherController = new CurrentWeatherController(weather);
 
-import { getWeather } from './service/openweather';
+const weatherController = new WeatherController(weather);
+const currentWeatherController= new CurrentWeatherController();
+
+//import { getWeather } from './service/openweather';
 
 //import { WeatherService } from '../service/weather';
 
@@ -29,4 +32,5 @@ export const findOne: Handler = (event: any, context: Context) => {
 
 export const deleteOne: Handler = (event: any) => weatherController.deleteOne(event);
 
-export const openWeather: Handler=(event:any)=> getWeather(event);
+//export const openWeather: Handler=(event:any)=> getWeather(event);
+export const openWeather: Handler= (event:any) => currentWeatherController.getWeather(event);
