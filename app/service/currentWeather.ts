@@ -33,7 +33,7 @@ export class CurrentWeatherService {
 
     protected parseWeatherDto(response: WeatherDTO){
         console.log("parseWeatherDto",response);
-
+        try{
         const weatherResponse: WeatherDTO = {
             cityId: response.id,
             name: response.name,
@@ -58,7 +58,11 @@ export class CurrentWeatherService {
         }
         return weatherResponse;
         
-      }
+    } catch (err) {
+        console.error(err);
 
+        throw err;
+    }
+      }
 
 }

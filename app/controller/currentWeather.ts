@@ -1,4 +1,3 @@
-import { Model } from 'mongoose';
 import { MessageUtil } from '../utils/message';
 import { CurrentWeatherService } from '../service/currentWeather';
 import { WeatherDTO } from '../model/dto/WeatherDTO';
@@ -10,27 +9,37 @@ export class CurrentWeatherController extends CurrentWeatherService {
       //super(weather);
    
 
-            /**
+/**
  * Makes an API call to retrieve current weather information for a specified location.
  * 
  * @param target 
  * Target location to retrieve weather for.
  * 
- * @param type 
- * Target location type to retrieve weather for.
  */
-    async queryApi(target: any) {  
+    protected async queryApi(target: any) {  
+    try{
         const response = await axios.get<WeatherDTO>(this.makeUrl(target)); 
         console.log('queryApi: ',response.data);
         return response.data as WeatherDTO;
+        
+        } catch (err) {
+         console.error(err);        
+      }
     }
     
      async getWeather(target: any) {
+        try{ 
         const cityName: string = String(target.pathParameters.location);
         const dto = await this.queryApi(cityName);
         const result= this.parseWeatherDto(dto);
           
         return MessageUtil.success(result); ;
+        
+        } catch (err) {
+        console.error(err);
+  
+        return MessageUtil.error(err.code, err.message);
+      }
           
       }
 
