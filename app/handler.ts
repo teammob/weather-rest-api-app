@@ -1,4 +1,3 @@
-
 import { Handler, Context } from 'aws-lambda';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -7,30 +6,33 @@ dotenv.config({
   path: dotenvPath,
 });
 
-import { weather } from './model';
-import { WeatherController } from './controller/weather';
-import { CurrentWeatherController } from './controller/currentWeather';
+import { weather,temperature as localTemp } from './model';
+//import { WeatherController } from './controller/weather';
+//import { CurrentWeatherController } from './controller/currentWeather';
+import { 
+  TemperatureController,
+  CurrentWeatherController,
+  WeatherController
+} from './controller';
 
 const weatherController = new WeatherController(weather);
-const currentWeatherController= new CurrentWeatherController();
+const currentWeatherController = new CurrentWeatherController();
+const temperatureController = new TemperatureController(localTemp);
 
-//import { getWeather } from './service/openweather';
-
-//import { WeatherService } from '../service/weather';
-
+/* WeatherController functions */
 export const create: Handler = (event: any, context: Context) => {
   return weatherController.create(event, context);
 };
-
 export const update: Handler = (event: any) => weatherController.update(event);
-
 export const find: Handler = () => weatherController.find();
-
 export const findOne: Handler = (event: any, context: Context) => {
   return weatherController.findOne(event, context);
 };
-
 export const deleteOne: Handler = (event: any) => weatherController.deleteOne(event);
 
-//export const openWeather: Handler=(event:any)=> getWeather(event);
-export const openWeather: Handler= (event:any) => currentWeatherController.getWeather(event);
+/* CurrentWeatherController functions */
+export const openWeather: Handler = (event:any) => currentWeatherController.getWeather(event);
+
+/* TemperatureController functions */
+export const temperature: Handler = (event:any) => temperatureController.findOneTemperature(event);
+export const temperaturemonth: Handler = (event:any) => temperatureController.findOneTemperatureMonth(event);

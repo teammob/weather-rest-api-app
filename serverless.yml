@@ -57,3 +57,15 @@ functions:
       - http:
           path: openweather/{location}
           method: get          
+  temperature:
+    handler: app/handler.temperature
+    events:
+      - http:
+          path: temperature/{city}
+          method: get
+  temperaturemonth:
+    handler: app/handler.temperaturemonth
+    events:
+      - http:
+          path: temperature/{city}/{selectedmonth}
+          method: get          
