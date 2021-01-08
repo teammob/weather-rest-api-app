@@ -1,5 +1,5 @@
 import { MessageUtil } from '../utils/message';
-import { CurrentWeatherService } from '../service/currentWeather';
+import { CurrentWeatherService } from '../service';
 import { WeatherDTO } from '../model/dto/WeatherDTO';
 import axios from 'axios';
 

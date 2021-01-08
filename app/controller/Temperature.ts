@@ -16,7 +16,6 @@ export class TemperatureController extends TemperatureService {
     async findOneTemperature (event: any) {
       
       const cityName: string = event.pathParameters.city;
-        console.log('findOneTemperatureByName-X: ', cityName);
       try {
         if (!cityName) {
             return MessageUtil.error(2010, ' City name can not be null !');
@@ -37,8 +36,9 @@ export class TemperatureController extends TemperatureService {
      */
     async findOneTemperatureMonth (event: any) {
         
-        const cityName: string = event.pathParameters.cityName;
-        const selectedMonth: string = event.pathParameters.selectedMonth;
+        const cityName: string = event.pathParameters.city;
+        const selectedMonth: string = event.pathParameters.selectedmonth;
+       // console.log('findOneTemperatureMonth: ',cityName +' selectedMonth:'+selectedMonth)
   
       try {
         if (!cityName && !selectedMonth) {

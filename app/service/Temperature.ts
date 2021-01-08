@@ -1,6 +1,4 @@
 import { Model } from 'mongoose';
-import { TemperatureDTO } from '../model/dto/TemperatureDTO';
-import { Months } from '../utils/months';
 
 export class TemperatureService {
   private temperature: Model<any>;
@@ -25,7 +23,10 @@ export class TemperatureService {
    * @param selectedMonth
    */
   protected findOneTemperatureByName_Month (cityName: string, selectedMonth: String) {
-      //const month : Months = Months.["${"selectedMonth"}"];  
-    return this.temperature.findOne({ city: cityName, monthlyAvg: selectedMonth });
+    
+    console.log('TemperatureService:::findOneTemperatureByName_Month: ',cityName +' selectedMonth:'+selectedMonth)
+
+    return this.temperature.find({ city: cityName, monthlyAvg[{0}]: ["0"] });
+    //{ arrayFilters: [{ 'element.author': 'Bar' }] });
   }
 }
