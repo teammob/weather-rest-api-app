@@ -9,7 +9,7 @@ jobs:
 
     docker:
       # specify the version you desire here
-      - image: circleci/node:6.10
+      - image: circleci/node:latest
 
     steps:
       - checkout
@@ -24,9 +24,9 @@ jobs:
       - run:
           name: Install Serverless CLI and dependencies
           command: |
+            sudo  npm config set prefix '~/.npm-global'
             sudo npm install -g typescript
-            npm i -g serverless
-            sudo npm install --unsafe-perm -g expo-cli
+            npm i -g serverless            
 
       # run tests
       - run: 
