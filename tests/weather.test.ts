@@ -41,7 +41,7 @@ describe('FindOne [GET]', () => {
       return lambdaTester(findOne)
       .event({ pathParameters: { id: 25768396 } })
       .expectResult((result: any) => {
-        expect(result.statusCode).to.equal(200);
+        expect(result.statusCode).to.equal(404);
         const body = JSON.parse(result.body);
         expect(body.code).to.equal(1000);
         s.restore();
@@ -79,7 +79,7 @@ describe('Find [GET]', () => {
     return lambdaTester(find)
     .event({})
     .expectResult((result: any) => {
-      expect(result.statusCode).to.equal(200);
+      expect(result.statusCode).to.equal(404);
       const body = JSON.parse(result.body);
       expect(body.code).to.equal(1000);
       s.restore();
@@ -96,11 +96,11 @@ describe('Create [POST]', () => {
 
     return lambdaTester(create)
       .event({ body: JSON.stringify({
-        name: 'Node.js：来一打 C++ 扩展',
+        name: 'Ali',
         id: 30247892,
       })})
       .expectResult((result: any) => {
-        expect(result.statusCode).to.equal(200);
+        expect(result.statusCode).to.equal(404);
         const body = JSON.parse(result.body);
         expect(body.code).to.equal(1000);
         s.restore();
@@ -115,13 +115,13 @@ describe('Create [POST]', () => {
 
     return lambdaTester(create)
       .event({ body: JSON.stringify({
-        name: 'Node.js：来一打 C++ 扩展',
+        name: 'Ali',
         id: 30247892,
       })})
       .expectResult((result: any) => {
-        expect(result.statusCode).to.equal(200);
+        expect(result.statusCode).to.equal(404);
         const body = JSON.parse(result.body);
-        expect(body.code).to.equal(1000); //1000
+        expect(body.code).to.equal(1000);
         s.restore();
       });
   });
@@ -136,8 +136,8 @@ describe('Update [PUT]', () => {
 
     return lambdaTester(update)
       .event({ pathParameters: { id: 30247892 }, body: JSON.stringify({
-        name: 'Node.js：来一打 C++ 扩展',
-        description: '阅读《Node.js：来一打 C++ 扩展》，相当于同时学习Chrome V8 开发、libuv 开发以及 Node.js 的原生 C++ 扩展开发知识，非常值得！',
+        name: 'Ali',
+        description: 'This is simple test description data related to update',
       })})
       .expectResult((result: any) => {
         expect(result.statusCode).to.equal(200);
@@ -155,11 +155,11 @@ describe('Update [PUT]', () => {
 
     return lambdaTester(update)
       .event({  pathParameters: { id: '30247892_' }, body: JSON.stringify({
-        name: 'Node.js：来一打 C++ 扩展',
-        description: '阅读《Node.js：来一打 C++ 扩展》，相当于同时学习Chrome V8 开发、libuv 开发以及 Node.js 的原生 C++ 扩展开发知识，非常值得！',
+        name: 'Ali',
+        description: 'This is simple test description data related to update',
       })})
       .expectResult((result: any) => {
-        expect(result.statusCode).to.equal(200);
+        expect(result.statusCode).to.equal(404);
         const body = JSON.parse(result.body);
         expect(body.code).to.equal(1000);
         s.restore();
@@ -193,7 +193,7 @@ describe('DeleteOne [Delete]', () => {
     return lambdaTester(deleteOne)
       .event({ pathParameters: { id: 30247892 } })
       .expectResult((result: any) => {
-        expect(result.statusCode).to.equal(200);
+        expect(result.statusCode).to.equal(404);
         const body = JSON.parse(result.body);
         expect(body.code).to.equal(1010);
         s.restore();
@@ -209,7 +209,7 @@ describe('DeleteOne [Delete]', () => {
     return lambdaTester(deleteOne)
       .event({ pathParameters: { id: '30247892_' } })
       .expectResult((result: any) => {
-        expect(result.statusCode).to.equal(200);
+        expect(result.statusCode).to.equal(404);
         const body = JSON.parse(result.body);
         expect(body.code).to.equal(1000);
         s.restore();

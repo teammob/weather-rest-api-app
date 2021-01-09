@@ -18,13 +18,11 @@ export class WeatherController extends WeatherService {
     const params: WeatherDTO = JSON.parse(event.body);
 
     try {
-      const result = await this.createWeather(params);
-      console.log("params:" ,JSON.stringify(params));
-      
+      const result = await this.createWeather(params);      
       return MessageUtil.success(result);
+      
     } catch (err) {
       console.error(err);
-
       return MessageUtil.error(err.code, err.message);
     }
   }
