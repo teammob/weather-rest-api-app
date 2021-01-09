@@ -21,7 +21,9 @@ export class TemperatureController extends TemperatureService {
             return MessageUtil.error(2010, ' City name can not be null !');
         }
         const result = await this.findOneTemperatureByName(cityName);
-  
+        if (result === null || undefined) {
+          return MessageUtil.error(2011, 'The data was not found for given city!');
+        }
         return MessageUtil.success(result);
       } catch (err) {
         console.error(err);
@@ -45,7 +47,7 @@ export class TemperatureController extends TemperatureService {
             return MessageUtil.error(2020, ' City name and selected month can not be null !');
         }
         const result = await this.findOneTemperatureByName_Month(cityName,selectedMonth);
-  
+        console.log('TemperatureController -result',result)
         if (result === null || undefined) {
           return MessageUtil.error(2021, 'The data was not found for given city and selected month!');
         }

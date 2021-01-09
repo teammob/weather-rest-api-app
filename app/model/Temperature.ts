@@ -4,13 +4,14 @@ export type TemperatureDocument = mongoose.Document & {
     city_id: number;
     city: String;
     country: string;
-    monthlyAvg:Array<{
+    monthlyAvg:{
+        month:String,
         high: number,
         low: number,
         dryDays:number,
         snowDays: number,
         rainfall: number
-    }>;
+    }[];
   
 };
 
@@ -20,6 +21,7 @@ const TemperatureSchema = new mongoose.Schema({
   city: { type: String, required: true },
   country: { type: String, required: true },
   monthlyAvg: [{ 
+    month: {type: String, required: true },  
     high: {type: Number,required: true},
     low: {type: Number,required: true},
     dryDays:{type: Number,required: true},

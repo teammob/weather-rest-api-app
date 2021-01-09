@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 export class TemperatureService {
   private temperature: Model<any>;
@@ -26,7 +26,8 @@ export class TemperatureService {
     
     console.log('TemperatureService:::findOneTemperatureByName_Month: ',cityName +' selectedMonth:'+selectedMonth)
 
-    return this.temperature.find({ city: cityName, monthlyAvg[{0}]: ["0"] });
-    //{ arrayFilters: [{ 'element.author': 'Bar' }] });
-  }
+    return this.temperature.find( {city: cityName},
+                                  {monthlyAvg:{ $elemMatch: { month: selectedMonth}}});
+
+}
 }
