@@ -24,8 +24,7 @@ jobs:
       - run:
           name: Install Serverless CLI and dependencies
           command: |
-            sudo npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
-            sudo npm install -g --loglevel=warn '@oresoftware/r2g@0.0.132
+            sudo npm set prefix=/home/circleci/npm           
             sudo npm install -g typescript
             npm install -g coffee-script
             npm i -g serverless
