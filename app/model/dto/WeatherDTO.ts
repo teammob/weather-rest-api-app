@@ -15,8 +15,4 @@ export class WeatherDTO {
     temp_min: number;
     temp_max: number;
   };
-    lat: number;
-    lon: number;
-    id: number;
-    sys: any;
 }

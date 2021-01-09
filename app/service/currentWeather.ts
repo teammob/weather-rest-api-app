@@ -29,8 +29,7 @@ export class CurrentWeatherService {
         }
 }
 
-
-    protected parseWeatherDto(response: WeatherDTO){
+    protected parseWeatherDto(response: any){
         console.log("parseWeatherDto",response);
         try{
         const weatherResponse: WeatherDTO = {
