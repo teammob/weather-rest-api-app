@@ -33,10 +33,10 @@ Serverless: Compiling with Typescript...
 Serverless: Using local tsconfig.json
 Serverless: Typescript compiled.
 
-{
-    "statusCode": 200,
-    "body": "{\"code\":0,\"message\":\"success\",\"data\":[{\"_id\":\"5dff21f71c9d440000a30dad\",\"createdAt\":\"2020-05-16T09:27:51.219Z\"},{\"_id\":\"5dff22ba1c9d440000a30dae\",\"createdAt\":\"2020-05-16T09:27:51.220Z\"}]}"
+  "statusCode": 200,
+    "body": "{\"code\":0,\"message\":\"success\",\"data\":[{\"_id\":\"5ff739d833d3184117c2cdcf\",\"cityId\":2643743,\"country\":\"GB\",\"name\":\"London\",\"coord\":{\"lon\":-0.1257,\"lat\":51.5085},\"weather\":{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\"},\"main\":{\"temp\":1.44,\"pressure\":1017,\"humidity\":70,\"temp_min\":0,\"temp_max\":0},\"createdAt\":\"2021-01-07T16:42:00.941Z\",\"__v\":0}]}"
 }
+
 ```
 
 ## Deploy
@@ -81,12 +81,14 @@ resources: 51
 api keys:
   None
 endpoints:
-  POST - https://XXXX.amazonaws.com/dev/weather
-  PUT - https://XXXX.amazonaws.com/dev/weather/{id}
-  GET - https://XXXX.amazonaws.com/dev/weather
-  GET - https://XXXX.amazonaws.com/dev/weather/{id}
-  DELETE - https://XXXX.amazonaws.com/dev/weather/{id}
-  GET - https://XXXX.amazonaws.com/dev/openweather/{location}
+  POST - XXXX.amazonaws.com/dev/weather
+  PUT - XXXX.amazonaws.com/dev/weather/{id}
+  GET - XXXX.amazonaws.com/dev/weather
+  GET - XXXX.amazonaws.com/dev/weather/{id}
+  DELETE - XXXX.amazonaws.com/dev/weather/{id}
+  GET - XXXX.amazonaws.com/dev/openweather/v1.0/{location}
+  GET - XXXX.amazonaws.com/dev/temperature/v1.0/{city}
+  GET - XXXX.amazonaws.com/dev/temperature/v1.0/{city}/{selectedmonth}
 functions:
   create: weather-rest-api-app-dev-create
   update: weather-rest-api-app-dev-update
@@ -94,6 +96,8 @@ functions:
   findOne: weather-rest-api-app-dev-findOne
   deleteOne: weather-rest-api-app-dev-deleteOne
   openWeather: weather-rest-api-app-dev-openWeather
+  temperature: weather-rest-api-app-dev-temperature
+  temperaturemonth: weather-rest-api-app-dev-temperaturemonth
 layers:
   None
 Serverless: Removing old service artifacts from S3...
