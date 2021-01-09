@@ -7,8 +7,6 @@ dotenv.config({
 });
 
 import { weather,temperature as localTemp } from './model';
-//import { WeatherController } from './controller/weather';
-//import { CurrentWeatherController } from './controller/currentWeather';
 import { 
   TemperatureController,
   CurrentWeatherController,

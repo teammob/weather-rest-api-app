@@ -10,8 +10,7 @@ export class TemperatureService {
    * Query Temperature by cityId
    * @param cityName
    */
-  protected findOneTemperatureByName (cityName: string) {
-      console.log('TemperatureService-findOneTemperatureByName',cityName)
+  protected findOneTemperatureByName (cityName: string) {      
     return this.temperature.findOne({ city: cityName });
   }
 
@@ -22,10 +21,7 @@ export class TemperatureService {
    *  Query Temperature by selectedMonth
    * @param selectedMonth
    */
-  protected findOneTemperatureByName_Month (cityName: string, selectedMonth: String) {
-    
-    console.log('TemperatureService:::findOneTemperatureByName_Month: ',cityName +' selectedMonth:'+selectedMonth)
-
+  protected findOneTemperatureByName_Month (cityName: string, selectedMonth: String) {    
     return this.temperature.find( {city: cityName},
                                   {monthlyAvg:{ $elemMatch: { month: selectedMonth}}});
 

@@ -2,13 +2,8 @@ import { WeatherDTO } from '../model/dto/WeatherDTO';
 
 
 export class CurrentWeatherService {
-   // private currentWeather: WeatherDTO;
-   // constructor(currentWeather: WeatherDTO) {
-     // this.currentWeather = currentWeather;
- 
 
-
-    /**
+/**
  * Constructs an API URL based on a specified target location and type.
  * 
  * @param location 

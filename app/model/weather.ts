@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+/*
+* WeatherDocument document type  on MongoDB
+*/
 export type WeatherDocument = mongoose.Document & {
   cityId: number;
   country: String;
@@ -18,7 +21,9 @@ export type WeatherDocument = mongoose.Document & {
     temp_max: number;
   }
 };
-
+/*
+* weatherSchema document type  on MongoDB
+*/
 const weatherSchema = new mongoose.Schema({
   
   cityId:  { type: Number, required: true, index: true },

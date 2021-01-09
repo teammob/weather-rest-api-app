@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
-
+/*
+* TemperatureDocument document type  on MongoDB
+*/
 export type TemperatureDocument = mongoose.Document & {
     city_id: number;
     city: String;
@@ -14,7 +16,9 @@ export type TemperatureDocument = mongoose.Document & {
     }[];
   
 };
-
+/*
+* TemperatureSchema document type on MongoDB
+*/
 const TemperatureSchema = new mongoose.Schema({
   
   cityId:  { type: Number, required: true, index: true },

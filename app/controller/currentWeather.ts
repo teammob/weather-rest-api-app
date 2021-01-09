@@ -5,9 +5,6 @@ import axios from 'axios';
 
 
 export class CurrentWeatherController extends CurrentWeatherService {
-    //constructor (weather: Model<any>) {
-      //super(weather);
-   
 
 /**
  * Makes an API call to retrieve current weather information for a specified location.
@@ -18,8 +15,7 @@ export class CurrentWeatherController extends CurrentWeatherService {
  */
     protected async queryApi(target: any) {  
     try{
-        const response = await axios.get<WeatherDTO>(this.makeUrl(target)); 
-        console.log('queryApi: ',response.data);
+        const response = await axios.get<WeatherDTO>(this.makeUrl(target));        
         return response.data as WeatherDTO;
         
         } catch (err) {
@@ -27,6 +23,13 @@ export class CurrentWeatherController extends CurrentWeatherService {
       }
     }
     
+/**
+ * retrieve current weather information from queryApi method.
+ * 
+ * @param target 
+ * Target location to retrieve weather for.
+ * 
+ */    
      async getWeather(target: any) {
         try{ 
         const cityName: string = String(target.pathParameters.location);
