@@ -81,12 +81,12 @@ resources: 51
 api keys:
   None
 endpoints:
-  POST - https://ti9zyj3wg5.execute-api.us-east-1.amazonaws.com/dev/weather
-  PUT - https://ti9zyj3wg5.execute-api.us-east-1.amazonaws.com/dev/weather/{id}
-  GET - https://ti9zyj3wg5.execute-api.us-east-1.amazonaws.com/dev/weather
-  GET - https://ti9zyj3wg5.execute-api.us-east-1.amazonaws.com/dev/weather/{id}
-  DELETE - https://ti9zyj3wg5.execute-api.us-east-1.amazonaws.com/dev/weather/{id}
-  GET - https://ti9zyj3wg5.execute-api.us-east-1.amazonaws.com/dev/openweather/{location}
+  POST - https://XXXX.amazonaws.com/dev/weather
+  PUT - https://XXXX.amazonaws.com/dev/weather/{id}
+  GET - https://XXXX.amazonaws.com/dev/weather
+  GET - https://XXXX.amazonaws.com/dev/weather/{id}
+  DELETE - https://XXXX.amazonaws.com/dev/weather/{id}
+  GET - https://XXXX.amazonaws.com/dev/openweather/{location}
 functions:
   create: weather-rest-api-app-dev-create
   update: weather-rest-api-app-dev-update
@@ -107,7 +107,7 @@ Serverless: Successfully published your service to the Serverless Dashboard: htt
 send an HTTP request directly to the endpoint using a tool like curl
 
 ```
-curl https://ti9zyj3wg5.execute-api.us-east-1.amazonaws.com/dev/weather
+curl https://XXXX.amazonaws.com/dev/weather
 ```
 
 ## Scaling

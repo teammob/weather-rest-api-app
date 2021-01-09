@@ -7,7 +7,7 @@ export const findOne = {
   "__v": 0
 };
 
-export const castError = new Error('Cast to number failed for value "NaN" at path "id" for model "Books"');
+export const castError = new Error('Cast to number failed for value "NaN" at path "id" for model "weather"');
 
 export const find = [
   {
@@ -36,7 +36,7 @@ export const create = {
   "__v": 0
 }
 
-export const createError = new Error('E11000 duplicate key error collection: study1.books index: id_1 dup key: { id: 30247892 }');
+export const createError = new Error('E11000 duplicate key error collection: study1.weather index: id_1 dup key: { id: 30247892 }');
 
 export const update = {
   "_id": "5eb0023e6460b01a9461c8fc",

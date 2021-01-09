@@ -1,7 +1,7 @@
 import lambdaTester from 'lambda-tester';
 import { expect } from 'chai';
 import { findOne, find, create, update, deleteOne } from '../app/handler';
-import * as booksMock from './weather.mock';
+import * as weatherMock from './weather.mock';
 import { weather as WeatherModel } from '../app/model/weather';
 import sinon from 'sinon';
 
@@ -14,7 +14,7 @@ describe('FindOne [GET]', () => {
       s.expects('findOne')
         .atLeast(1)
         .atMost(3)
-        .resolves(booksMock.findOne);
+        .resolves(weatherMock.findOne);
 
       return lambdaTester(findOne)
       .event({ pathParameters: { id: 25768396 } })
@@ -36,7 +36,7 @@ describe('FindOne [GET]', () => {
         .mock(WeatherModel);
 
       s.expects('findOne')
-        .rejects(booksMock.castError);
+        .rejects(weatherMock.castError);
 
       return lambdaTester(findOne)
       .event({ pathParameters: { id: 25768396 } })
@@ -58,7 +58,7 @@ describe('Find [GET]', () => {
       .mock(WeatherModel);
 
     s.expects('find')
-      .resolves(booksMock.find);
+      .resolves(weatherMock.find);
 
     return lambdaTester(find)
     .event({})
@@ -74,7 +74,7 @@ describe('Find [GET]', () => {
     const s = sinon
       .mock(WeatherModel);
 
-    s.expects('find').rejects(booksMock.findError);
+    s.expects('find').rejects(weatherMock.findError);
 
     return lambdaTester(find)
     .event({})
@@ -92,26 +92,7 @@ describe('Create [POST]', () => {
     const s = sinon
       .mock(WeatherModel);
 
-    s.expects('create').resolves(booksMock.create);
-
-    return lambdaTester(create)
-      .event({ body: JSON.stringify({
-        name: 'Node.js：来一打 C++ 扩展',
-        id: 30247892,
-      })})
-      .expectResult((result: any) => {
-        expect(result.statusCode).to.equal(200);
-        const body = JSON.parse(result.body);
-        expect(body.code).to.equal(0);
-        s.restore();
-      });
-  });
-
-  it('error', () => {
-    const s = sinon
-      .mock(WeatherModel);
-
-    s.expects('create').rejects(booksMock.createError);
+    s.expects('create').resolves(weatherMock.create);
 
     return lambdaTester(create)
       .event({ body: JSON.stringify({
@@ -125,6 +106,25 @@ describe('Create [POST]', () => {
         s.restore();
       });
   });
+
+  it('error', () => {
+    const s = sinon
+      .mock(WeatherModel);
+
+    s.expects('create').rejects(weatherMock.createError);
+
+    return lambdaTester(create)
+      .event({ body: JSON.stringify({
+        name: 'Node.js：来一打 C++ 扩展',
+        id: 30247892,
+      })})
+      .expectResult((result: any) => {
+        expect(result.statusCode).to.equal(200);
+        const body = JSON.parse(result.body);
+        expect(body.code).to.equal(1000); //1000
+        s.restore();
+      });
+  });
 });
 
 describe('Update [PUT]', () => {
@@ -132,7 +132,7 @@ describe('Update [PUT]', () => {
     const s = sinon
       .mock(WeatherModel);
 
-    s.expects('findOneAndUpdate').resolves(booksMock.update);
+    s.expects('findOneAndUpdate').resolves(weatherMock.update);
 
     return lambdaTester(update)
       .event({ pathParameters: { id: 30247892 }, body: JSON.stringify({
@@ -151,7 +151,7 @@ describe('Update [PUT]', () => {
     const s = sinon
       .mock(WeatherModel);
 
-    s.expects('findOneAndUpdate').rejects(booksMock.castError);
+    s.expects('findOneAndUpdate').rejects(weatherMock.castError);
 
     return lambdaTester(update)
       .event({  pathParameters: { id: '30247892_' }, body: JSON.stringify({
@@ -172,7 +172,7 @@ describe('DeleteOne [Delete]', () => {
     const s = sinon
       .mock(WeatherModel);
 
-    s.expects('deleteOne').resolves(booksMock.deleteOne);
+    s.expects('deleteOne').resolves(weatherMock.deleteOne);
 
     return lambdaTester(deleteOne)
       .event({  pathParameters: { id: 30247892 } })
@@ -188,7 +188,7 @@ describe('DeleteOne [Delete]', () => {
     const s = sinon
       .mock(WeatherModel);
 
-    s.expects('deleteOne').resolves(booksMock.deletedCount);
+    s.expects('deleteOne').resolves(weatherMock.deletedCount);
 
     return lambdaTester(deleteOne)
       .event({ pathParameters: { id: 30247892 } })
@@ -204,7 +204,7 @@ describe('DeleteOne [Delete]', () => {
     const s = sinon
       .mock(WeatherModel);
 
-    s.expects('deleteOne').rejects(booksMock.castError);
+    s.expects('deleteOne').rejects(weatherMock.castError);
 
     return lambdaTester(deleteOne)
       .event({ pathParameters: { id: '30247892_' } })
