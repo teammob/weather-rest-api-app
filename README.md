@@ -108,6 +108,10 @@ Serverless: Successfully published your service to the Serverless Dashboard: htt
 
 ## Usage
 
+### To Test It Locally
+ city names for XXXX.amazonaws.com/dev/temperature/v1.0/{city} endpoints
+  -Amsterdam , Athens, Atlanta GA,Auckland,Austin TX,Bangkok,Barcelona,Beijing,Rotterdam,Singapore
+
 send an HTTP request directly to the endpoint using a tool like curl
 
 ```
