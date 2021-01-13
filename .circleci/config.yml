@@ -1,25 +1,28 @@
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+jobs:  
+build-and-deploy:
+  docker:
+    - image: circle/node:10.16.3
+  steps:
+  - checkout
+  - run: 
+      command: sudo npm i -g serverless@latest
+  - run:
+      command: npm install 
+  - run:
+      command: ./.circleci/install-credentials.sh 
+  - run:
+      command: sls deploy
 
-description: >
-  Use the Serverless orb's "setup" command to install the Serverless Framework CLI and authenticate with your account if an API key is provided. This example shows how to construct a custom "deploy" job using the Serverless and AWS CLI orbs to deploy an app to AWS.
-usage:
-  version: 2.1
-  orbs:
-  serverless-framework: circleci/serverless-framework@1.0.1
-  aws-cli: circleci/aws-cli@0.1.22
-  node: circleci/node@2.0
-  jobs:
-    deploy:
-      executor: serverless-framework/default
-      steps:
-        - checkout
-        - aws-cli/setup
-        - serverless-framework/setup:
-            app-name: weather-rest-api-app
-            org-name: testcompany
-        - run:
-            name: deploy
-            command: serverless deploy -v
-  workflows:
-    deploy:
+workflows:
+    build-and-deploy:
       jobs:
-        - deploy
+        - build-and-deploy:
+            context: serverlessRestAPI
+            filter:
+                branches:
+                    only:
+                        - master
+
