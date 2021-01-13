@@ -1,110 +1,25 @@
-version: 2.1
 
-# add your orb below, to be used in integration tests (note: a @dev:alpha
-# release must exist.);
-orbs:
-  serverless: circleci/serverless-framework@serverless-framework@1.0.1
-  orb-tools: circleci/orb-tools@9.1
+description: >
+  Use the Serverless orb's "setup" command to install the Serverless Framework CLI and authenticate with your account if an API key is provided. This example shows how to construct a custom "deploy" job using the Serverless and AWS CLI orbs to deploy an app to AWS.
+usage:
+  version: 2.1
+  orbs:
+  serverless: circleci/serverless-framework@serverless-framework@1.0.1  
   aws-cli: circleci/aws-cli@0.1.22
   node: circleci/node@2.0
-
-# Integration tests
-integration_tests: &integration_tests
-  [
-    integration-test-1
-  ]
-orb_prep_jobs: &orb_prep_jobs
-  [
-    orb-tools/lint,
-    orb-tools/shellcheck,
-    orb-tools/pack
-  ]
-# Pipeline parameters
-parameters:
-  # These pipeline parameters are required by the "trigger-integration-tests-workflow"
-  # job, by default.
-  run-integration-tests:
-    type: boolean
-    default: false
-  dev-orb-version:
-    type: string
-    default: "dev:alpha"
-
-jobs:
-  integration-test-1:
-    # Test within the default executor
-    # - install the aws cli
-    # - run serverless setup
-    # - Test the node app
-    # - deploy sample application
-    executor: serverless/default
-    environment:
-      SLS_DEBUG: "1"
-    steps:
-      - checkout
-      - aws-cli/setup
-      - node/install-packages:
-          app-dir: "~/weather-rest-api-app"
-      - run:
-          command: npm run test
-          working_directory: "~/weather-rest-api-app"
-      - serverless/setup:
-          provider: AWS
+  jobs:
+    deploy:
+      executor: serverless-framework/default
+      steps:
+        - checkout
+        - aws-cli/setup
+        - serverless-framework/setup:
           app-name: weather-rest-api-app
           org-name: testcompany
-      - run:
-          working_directory: "~/weather-rest-api-app"
-          command: ls && serverless deploy -v
-          name: deploy
-
-workflows:
-  # This `lint-pack_validate_publish-dev` workflow will run on any commit.
-  lint_pack-validate_publish-dev:
-    unless: << pipeline.parameters.run-integration-tests >>
-    jobs:
-      - orb-tools/lint
-      - orb-tools/shellcheck
-      - orb-tools/pack
-      - orb-tools/publish-dev:
-          orb-name: circleci/serverless-framework
-          context: orb-publishing
-          requires: *orb_prep_jobs
-      # trigger an integration workflow to test the
-      # dev:${CIRCLE_SHA1:0:7} version of your orb
-      - orb-tools/trigger-integration-tests-workflow:
-          name: trigger-integration-dev
-          context: orb-publishing
-          requires:
-            - orb-tools/publish-dev
-
-  # This `integration-tests_prod-release` workflow will only run
-  # when the run-integration-tests pipeline parameter is set to true.
-  # It is meant to be triggered by the "trigger-integration-tests-workflow"
-  # job, and run tests on <your orb>@dev:${CIRCLE_SHA1:0:7}.
-  integration-tests_prod-release:
-    when: << pipeline.parameters.run-integration-tests >>
-    jobs:
-      - approve_for_testing:
-          type: approval
-
-      - integration-test-1:
-          context: serverless-framework-orb-testing
-          requires:
-            - approve_for_testing
-
-      # publish a semver version of the orb. relies on
-      # the commit subject containing the text "[semver:patch|minor|major|skip]"
-      # as that will determine whether a patch, minor or major
-      # version will be published or if publishing should
-      # be skipped.
-      # e.g. [semver:patch] will cause a patch version to be published.
-      - orb-tools/dev-promote-prod-from-commit-subject:
-          orb-name: circleci/serverless-framework
-          context: orb-publishing
-          add-pr-comment: false
-          fail-if-semver-not-indicated: true
-          publish-version-tag: false
-          requires: *integration_tests
-          filters:
-            branches:
-              only: master
+        - run:
+            name: deploy
+            command: serverless deploy -v
+  workflows:
+    deploy:
+      jobs:
+        - deploy
